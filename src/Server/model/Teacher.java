@@ -20,26 +20,82 @@ public class Teacher extends User {
         numberOfTeachers++;
     }
 
-    public Teacher(String firstName, String lastName, String email, String password, int birthyear, int numberOfTeachers, int employeeid,String knownSubject, int salary) {
+//alternativ constructor if you only know one subject in string form
+    public Teacher(String firstName, String lastName, String email, String password, int birthyear,String knownSubject, int salary) {
         super(firstName, lastName, email, password, birthyear);
-        this.employeeid = employeeid;
         this.knownSubjects = new ArrayList<String>();
-        this.salary = salary;
+        raiseSalary(salary);
+        addSubject(knownSubject);
+        this.employeeid = idCounter;
+        numberOfTeachers++;
+        idCounter++;
+
     }
+
+//Increase the salary
 
     public void raiseSalary(int increment) {
         if (this.salary+increment>0){
            this.salary += increment;
         }
     }
+
+//Decrease the salary
+
     public void decreaseSalary(int decrement){
         if(this.salary-decrement>0){
             this.salary-=decrement;
         }
     }
-/*
-    public void addSubject(String Subject){
-        for(int i=0,)
+
+//Add subject if its not already added
+
+    public void addSubject(String Subject) {
+        for (int i = 0; i <this.knownSubjects.size(); i++) {
+            if(this.knownSubjects.get(i).equals(Subject)){return;}
+        }
+        this.knownSubjects.add(Subject);
     }
-    */
+
+//Removes subject from the list
+
+    public void removeSubject(String Subject){
+        for (int i = 0; i <this.knownSubjects.size(); i++) {
+            if(this.knownSubjects.get(i).equals(Subject)){
+                this.knownSubjects.remove(i);
+            }
+        }
+    }
+//Get number of teachers
+    public int getNumberOfTeachers() {
+        return numberOfTeachers;
+    }
+//Set number of teachers
+    public void setNumberOfTeachers(int numberOfTeachers) {
+        this.numberOfTeachers = numberOfTeachers;
+    }
+//Get employer id
+    public int getEmployeeid() {
+        return employeeid;
+    }
+//get the list of known subjects
+    public ArrayList<String> getKnownSubjects() {
+        return knownSubjects;
+    }
+
+    public String getStringOfSubjects(){
+       String subjects="";
+        for (int i = 0; i <this.knownSubjects.size(); i++){
+            subjects+=this.knownSubjects.get(i)+",";
+        }
+        return subjects;
+
+    }
+
+
+    public int getSalary() {
+        return salary;
+    }
+
+
 }
