@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CollectionOfUsers implements Serializable{
-    private ArrayList<User> users;
+    private ArrayList<model.User> users;
 
-    public CollectionOfUsers(ArrayList<User> users) {
+    public CollectionOfUsers(ArrayList<model.User> users) {
         this.users = users;
     }
 
@@ -14,7 +14,7 @@ public class CollectionOfUsers implements Serializable{
         this.users = new ArrayList<>();
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(model.User user){
         for(int i=0 ; i<users.size() ; i++){
             if(user.getEmail().equals(users.get(i).getEmail())){
                 return false;
