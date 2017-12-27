@@ -7,7 +7,7 @@ public class Admin extends User {
 
     public Admin(String firstName, String lastName, String email, String password, int birthyear,ArrayList<String> listOfAdmins) {
         super(firstName, lastName, email, password, birthyear);
-        this.listOfAdmins = new ArrayList<>();
+        this.listOfAdmins = new ArrayList<>(); //test
 
 
     }

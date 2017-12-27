@@ -1,5 +1,9 @@
 package Server.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Student extends User {
@@ -52,5 +56,20 @@ public class Student extends User {
         this.currentCourses.remove(Course);
 
     }
+// EJ KLAR
+    public void saveStudentToFile(String fileName) throws FileNotFoundException {
+        FileOutputStream fileOut = new FileOutputStream(fileName);
+        try {
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            for (int i = 0; i <this.students.size(); i++) {
+                out.writeObject(User);
 
+            }
+        out.close();
+        fileOut.close();
+        }   catch (IOException i) {
+
+        }
+
+    }
 }
