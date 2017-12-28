@@ -1,4 +1,4 @@
-package Model;
+package Server.Model;
 
 public class User {
     private String firstName;
@@ -50,5 +50,9 @@ public class User {
 
     public void setBirthyear(int birthyear) {
         this.birthyear = birthyear;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

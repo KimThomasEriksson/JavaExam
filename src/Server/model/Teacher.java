@@ -1,4 +1,4 @@
-package Model;
+package Server.Model;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Teacher extends User {
     }
 
 //alternativ constructor if you only know one subject in string form
-    public Teacher(String firstName, String lastName, String email, String password, int birthyear,String knownSubject, int salary) {
+    public Teacher(String firstName, String lastName, String email, String password, int birthyear, int salary, String knownSubject) {
         super(firstName, lastName, email, password, birthyear);
         this.knownSubjects = new ArrayList<String>();
         raiseSalary(salary);

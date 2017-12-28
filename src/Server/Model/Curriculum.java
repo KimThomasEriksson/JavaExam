@@ -63,11 +63,11 @@ public class Curriculum{
     }
 
     public void passStudent(Student studentToPass){
-        studentToPass.completeCourse(this.course, true);
+        //studentToPass.completeCourse(this.course, true);
     }
 
     public void failStudent(Student studentToPass){
-        studentToPass.completeCourse(this.course, false);
+        //studentToPass.completeCourse(this.course, false);
     }
 
 }
