@@ -220,3 +220,41 @@ public class School implements AdminToSchool{
 
 }
 
+
+//Saving if needed laters.
+ /*   public void saveSchool(String fileName, ArrayList<Curriculum> curriculum, ArrayList<Course> courses, ArrayList<Teacher> teachers, ArrayList<Student> students) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(fileName + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.curriculum + "\n", this.courses+ "\n", this.teachers+ "\n", this.students+ "\n");
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+        }
+    }
+
+    public void loadSchool(String fileName){
+        ArrayList<Curriculum> curriculum=null;
+        ArrayList<Course> courses=null;
+        ArrayList<Teacher> teachers=null;
+        ArrayList<Student> students=null;
+        try {
+            FileInputStream fileIn = new FileInputStream(fileName+".ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            curriculum = (ArrayList<Curriculum>) in.readObject();
+            courses = (ArrayList<Course>) in.readObject();
+            teachers = (ArrayList<Teacher>) in.readObject();
+            students = (ArrayList<Student>) in.readObject();
+            in.close();
+            fileIn.close();
+            this.curriculum = students;
+            this.courses = courses;
+            this.teachers = teachers;
+            this.students = students;
+        } catch (IOException i) {
+        } catch (ClassNotFoundException c) {
+
+        }
+    }*/
+
+
