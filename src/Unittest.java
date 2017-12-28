@@ -36,7 +36,7 @@ public class Unittest {
         //Test add Subject
         teacher.addSubject("Spanish");
         assertEquals(teacher.getKnownSubjects().size(), 2);
-        assertEquals(teacher.getStringOfSubjects(), "Math,Spanish,");
+        assertEquals(teacher.getStringOfSubjects(), "Math, Spanish");
 
         //Test remove subject
 
@@ -127,7 +127,6 @@ public class Unittest {
         assertEquals(curriculum.getCurricilumID(), 0);
         assertEquals(curriculum.getStudents().size(), 0);
         assertEquals(curriculum.getTeacher().getEmployeeid(), teacher.getEmployeeid());
-
         // Test adding another teacher
         assertEquals(curriculum.addTeacher(teacher2), false);
 
@@ -145,9 +144,10 @@ public class Unittest {
         assertEquals(curriculum.addStudent(student3), false);
 
         // Test pass and fail course;
-        curriculum.passStudent(student);
+        teacher2.getTeacherToCurriculum().passStudent(student);
         assertEquals(student.getCompletedCourses().get(0).getCourseID(), course.getCourseID());
-        curriculum.failStudent(student2);
+        assertEquals(student.getTotalPoints(), 50);
+        teacher2.getTeacherToCurriculum().failStudent(student2);
         assertEquals(student2.getFailedCourses().get(0).getCourseID(), course.getCourseID());
 
     }

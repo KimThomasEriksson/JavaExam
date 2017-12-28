@@ -2,7 +2,7 @@ package Server.Model;
 
 import java.util.ArrayList;
 
-public class School {
+public class School implements AdminToSchool{
    private String Name;
    private String Adress;
    private ArrayList<Curriculum> curriculum;
@@ -26,7 +26,6 @@ public class School {
             }
         }
         Teacher newTeacher = new Teacher(firstName,lastName,email,password,birthyear,salary,knownSubject);
-        this.teachers.add(newTeacher);
 
 
     }
@@ -101,6 +100,7 @@ public class School {
         }
         Curriculum newCurriculum= new Curriculum(course,teacher);
         this.curriculum.add(newCurriculum);
+        teacher.addInterface(newCurriculum);
     }
     public void addCurriclum(Course course,Teacher teacher,ArrayList<Student> students) {
         for (int i = 0; i < this.curriculum.size(); i++) {
@@ -110,6 +110,7 @@ public class School {
         }
         Curriculum newCurriculum= new Curriculum(course,teacher,students);
         this.curriculum.add(newCurriculum);
+        teacher.addInterface(newCurriculum);
     }
 
     public String getName() {
@@ -137,6 +138,7 @@ public class School {
     }
 
     //EJ KLAR
+    /*
    public static void saveUsers(Student studets){
       try {
          FileOutputStream fileOut =
@@ -148,7 +150,8 @@ public class School {
       } catch (IOException i) {
 
       }
-   }
+
+   }*/
 
 }
 

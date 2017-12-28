@@ -1,6 +1,6 @@
 package Server.Model;
 
-public class User {
+public abstract class User {
     private String firstName;
     private String lastName;
     private final String email;

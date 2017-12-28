@@ -2,7 +2,7 @@ package Server.Model;
 
 import java.util.ArrayList;
 
-public class Curriculum{
+public class Curriculum implements TeacherToCurriculum{
     private static int numberOfCurricilum = 0;
     private int curricilumID;
     private Course course;
@@ -37,6 +37,7 @@ public class Curriculum{
     public boolean addTeacher(Teacher newTeacher){
         if(teacher == null){
             this.teacher = newTeacher;
+            newTeacher.addInterface(this);
             return true;
         }
         else{
@@ -63,10 +64,11 @@ public class Curriculum{
         }
     }
 
+    @Override
     public void passStudent(Student studentToPass){
         studentToPass.completeCourse(this.course, true);
     }
-
+    @Override
     public void failStudent(Student studentToPass){
         studentToPass.completeCourse(this.course, false);
     }

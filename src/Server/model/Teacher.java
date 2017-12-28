@@ -9,6 +9,7 @@ public class Teacher extends User {
     private final int employeeid;
     private ArrayList<String> knownSubjects;
     private int salary;
+    private TeacherToCurriculum teacherToCurriculum;
 
 
     public Teacher(String firstName, String lastName, String email, String password, int birthyear,int salary, ArrayList<String> knownSubjects) {
@@ -66,6 +67,10 @@ public class Teacher extends User {
             }
         }
     }
+
+    public void addInterface(Curriculum curriculum){
+        this.teacherToCurriculum = curriculum;
+    }
 //Get number of teachers
     public int getNumberOfTeachers() {
         return numberOfTeachers;
@@ -86,7 +91,9 @@ public class Teacher extends User {
     public String getStringOfSubjects(){
        String subjects="";
         for (int i = 0; i <this.knownSubjects.size(); i++){
-            subjects+=this.knownSubjects.get(i)+",";
+            subjects+=this.knownSubjects.get(i);
+            if(i != this.knownSubjects.size()-1){
+            subjects+=", ";}
         }
         return subjects;
 
@@ -97,5 +104,7 @@ public class Teacher extends User {
         return salary;
     }
 
-
+    public TeacherToCurriculum getTeacherToCurriculum() {
+        return teacherToCurriculum;
+    }
 }
