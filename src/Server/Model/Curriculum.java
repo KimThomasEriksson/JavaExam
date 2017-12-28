@@ -70,4 +70,23 @@ public class Curriculum{
         //studentToPass.completeCourse(this.course, false);
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public static int getNumberOfCurricilum() {
+        return numberOfCurricilum;
+    }
+
+    public int getCurricilumID() {
+        return curricilumID;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
 }
