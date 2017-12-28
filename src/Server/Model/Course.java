@@ -1,4 +1,4 @@
-package Model;
+package Server.Model;
 
 public class Course{
     private int numberOfCourses = 0;
