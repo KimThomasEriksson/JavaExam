@@ -1,7 +1,7 @@
 package Server.Model;
 
 public class Course{
-    private int numberOfCourses = 0;
+    private static int numberOfCourses = 0;
     private int courseID;
     private String name;
     private String subject;
