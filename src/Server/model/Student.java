@@ -9,17 +9,17 @@ import java.util.ArrayList;
 public class Student extends User {
 
     private int totalPoints;
-    private ArrayList<String> currentCourses;
-    private ArrayList<String> completedCourses;
-    private ArrayList<String> failedCourses;
+    private ArrayList<Course> currentCourses;
+    private ArrayList<Course> completedCourses;
+    private ArrayList<Course> failedCourses;
 
 
-    public Student(String firstName, String lastName, String email, String password, int birthyear,int totalPoints,ArrayList<String>currentCourses,ArrayList<String>completedCourses,ArrayList<String>failedCourses) {
+    public Student(String firstName, String lastName, String email, String password, int birthyear, ArrayList<Course>currentCourses,ArrayList<Course>completedCourses,ArrayList<Course>failedCourses) {
         super(firstName,lastName,email,password,birthyear);
-        this.totalPoints = totalPoints;
         this.currentCourses = currentCourses;
         this.completedCourses = completedCourses;
         this.failedCourses = failedCourses;
+        calculateTotalPoints();
 
     }
 
@@ -36,51 +36,59 @@ public class Student extends User {
         return totalPoints;
     }
 
-    /* Funktion för att räkna ut totalpoängen
+
     public void calculateTotalPoints(){
         int result = 0;
         for(Course completed : completedCourses){
             result += completed.getPoints();
         }
+        this.totalPoints = result;
     }
-    */
+
 
 //Adds a course to the list if it's not already in the list of courses.
-    public void addCourse(String Course) {
-        for (int i = 0; i <this.currentCourses.size(); i++) {
-            if(this.currentCourses.get(i).equals(Course)){
-                return;
+    public boolean addCourse(Course newCourse) {
+        for (Course course: currentCourses){
+            if(course.getCourseID() == newCourse.getCourseID()){
+                return false;
             }
         }
-        this.currentCourses.add(Course);
-    }
-
-    public void completeCourse(String Course,boolean completed){
-        for (int i = 0; i <this.currentCourses.size(); i++) {
-            if(this.currentCourses.get(i).equals(Course)) {
-                if(completed) {
-                    this.completedCourses.add(Course);
-                    return;
-                }
-                else {
-                    this.failedCourses.add(Course);
-                    return;
-                }
+        for (Course course: completedCourses){
+            if(course.getCourseID() == newCourse.getCourseID()){
+                return false;
             }
         }
-        this.currentCourses.remove(Course);
+        this.currentCourses.add(newCourse);
+        return true;
+    }
+
+    public boolean completeCourse(Course completedCourse,boolean completed){
+        if(currentCourses.contains(completedCourse)){
+            if(completed){
+                completedCourses.add(completedCourse);
+                calculateTotalPoints();
+                currentCourses.remove(completedCourse);
+                return true;
+            }else{
+                failedCourses.add(completedCourse);
+                currentCourses.remove(completedCourse);
+                return true;
+            }
+        }else{
+            return false;
+        }
 
     }
 
-    public ArrayList<String> getCurrentCourses() {
+    public ArrayList<Course> getCurrentCourses() {
         return currentCourses;
     }
 
-    public ArrayList<String> getCompletedCourses() {
+    public ArrayList<Course> getCompletedCourses() {
         return completedCourses;
     }
 
-    public ArrayList<String> getFailedCourses() {
+    public ArrayList<Course> getFailedCourses() {
         return failedCourses;
     }
 

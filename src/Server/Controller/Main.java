@@ -1,4 +1,4 @@
-package Server.Controller;
+package Controller;
 
 public class Main {
 }
