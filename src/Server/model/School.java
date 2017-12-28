@@ -26,7 +26,7 @@ public class School implements AdminToSchool{
             }
         }
         Teacher newTeacher = new Teacher(firstName,lastName,email,password,birthyear,salary,knownSubject);
-
+        this.teachers.add(newTeacher);
 
     }
 
