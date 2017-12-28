@@ -54,8 +54,9 @@ public class Curriculum{
     }
 
     public boolean addStudent(Student studentToAdd){
-        if(!(students.size()>this.course.getNumberOfStudents())){
+        if(!(students.size()==this.course.getNumberOfStudents() || students.contains(studentToAdd))){
             students.add(studentToAdd);
+            studentToAdd.addCourse(this.course);
             return true;
         }else{
             return false;

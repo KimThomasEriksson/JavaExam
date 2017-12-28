@@ -1,7 +1,4 @@
-import Server.Model.Admin;
-import Server.Model.Course;
-import Server.Model.Student;
-import Server.Model.Teacher;
+import Server.Model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -73,9 +70,11 @@ public class Unittest {
         assertEquals(student.getTotalPoints(), 50);
         assertEquals(student.getCurrentCourses().size(), 0);
         assertEquals(student.getCompletedCourses().size(), 1);
-        assertEquals(student.getFailedCourses().size(), 1);
+        assertEquals(student.getFailedCourses().size(), 0);
 
         // Test complete course fail
+        student.addCourse(course2);
+        assertEquals(student.getCurrentCourses().size(), 1);
         student.completeCourse(course2, false);
         assertEquals(student.getTotalPoints(), 50);
         assertEquals(student.getCurrentCourses().size(), 0);
@@ -97,18 +96,20 @@ public class Unittest {
     @Test
     public void testCourse(){
         Course course = new Course("Math A", "Math", 50, 30);
+        Course course2 = new Course("Math A", "Math", 50, 30);
         assertEquals(course.getName(), "Math A");
         assertEquals(course.getSubject(), "Math");
-        assertEquals(course.getCourseID(), 1);
+        assertEquals(course.getCourseID(), 2);
+        assertEquals(course2.getCourseID(), 3);
         assertEquals(course.getNumberOfStudents(), 30);
+
+
     }
 
+    @Test
     public void testCurriculum(){
-        Course course = new Course("Math A", "Math", 50, 30);
-        Course course2 = new Course("Math B", "Math", 50, 30);
-        ArrayList<Course> courses = new ArrayList<>();
-        courses.add(course);
-        courses.add(course2);
+        Course course = new Course("Math A", "Math", 50, 2);
+        Course course2 = new Course("Math B", "Math", 50, 2);
 
         Student student = new Student("Kim", "Eriksson", "kim@school.se", "1234", 1996);
         Student student2 = new Student("Kim", "Eriksson", "kim@school.se", "1234", 1996);
@@ -120,11 +121,34 @@ public class Unittest {
 
         Teacher teacher = new Teacher("Kim", "Eriksson", "kim@school.se", "1234", 1996, 26000, "Math");
         Teacher teacher2 = new Teacher("Kim", "Eriksson", "kim@school.se", "1234", 1996, 26000, "Math");
-        ArrayList<Teacher> teachers = new ArrayList<>();
-        teachers.add(teacher);
-        teachers.add(teacher2);
 
+        Curriculum curriculum = new Curriculum(course, teacher);
+        assertEquals(curriculum.getCourse().getCourseID(), course.getCourseID());
+        assertEquals(curriculum.getCurricilumID(), 0);
+        assertEquals(curriculum.getStudents().size(), 0);
+        assertEquals(curriculum.getTeacher().getEmployeeid(), teacher.getEmployeeid());
 
+        // Test adding another teacher
+        assertEquals(curriculum.addTeacher(teacher2), false);
+
+        // Test removing teacker
+
+        assertEquals(curriculum.removeTeacher(teacher), true);
+        assertEquals(curriculum.getTeacher(), null);
+        assertEquals(curriculum.addTeacher(teacher2), true);
+        assertEquals(curriculum.getTeacher().getEmployeeid(), teacher2.getEmployeeid());
+
+        // Test adding students
+        assertEquals(curriculum.addStudent(student), true);
+        assertEquals(curriculum.addStudent(student), false);
+        assertEquals(curriculum.addStudent(student2), true);
+        assertEquals(curriculum.addStudent(student3), false);
+
+        // Test pass and fail course;
+        curriculum.passStudent(student);
+        assertEquals(student.getCompletedCourses().get(0).getCourseID(), course.getCourseID());
+        curriculum.failStudent(student2);
+        assertEquals(student2.getFailedCourses().get(0).getCourseID(), course.getCourseID());
 
     }
 

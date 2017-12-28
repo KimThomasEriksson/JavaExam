@@ -44,17 +44,13 @@ public class School {
     }
 
 
-
-
-
-
-    public void addStudent(String firstName,String lastName,String email,String password,int birthyear,int totalPoints,ArrayList<Course> currentCourses,ArrayList<Course> completedCourses,ArrayList<Course> failedCourses){
+    public void addStudent(String firstName,String lastName,String email,String password,int birthyear, ArrayList<Course> currentCourses,ArrayList<Course> completedCourses,ArrayList<Course> failedCourses){
         for (int i = 0; i < this.students.size(); i++) {
             if (this.students.get(i).getEmail().equals(email)) {
                 return;
             }
         }
-        Student newStudent = new Student(firstName, lastName, email, password, birthyear, totalPoints, currentCourses, completedCourses, failedCourses);
+        Student newStudent = new Student(firstName, lastName, email, password, birthyear, currentCourses, completedCourses, failedCourses);
         this.students.add(newStudent);
 
 

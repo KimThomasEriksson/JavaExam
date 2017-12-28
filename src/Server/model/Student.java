@@ -70,8 +70,8 @@ public class Student extends User {
                 currentCourses.remove(completedCourse);
                 return true;
             }else{
-                failedCourses.add(completedCourse);
                 currentCourses.remove(completedCourse);
+                failedCourses.add(completedCourse);
                 return true;
             }
         }else{
