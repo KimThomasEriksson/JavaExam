@@ -1,5 +1,6 @@
 package Server.Model;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class School implements AdminToSchool{
@@ -137,7 +138,7 @@ public class School implements AdminToSchool{
         return students;
     }
 
-
+/*
    public void saveStudents(Student students){
       try {
          FileOutputStream fileOut = new FileOutputStream("students.ser");
@@ -175,6 +176,46 @@ public class School implements AdminToSchool{
        }
 
    }
+
+*/
+    public void functoSaveStudent(ArrayList<Student> student) {
+
+
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("someEmployee.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(student);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+
+        }
+    }
+
+    public void functoLoadStudent(String fileToLoad ,ArrayList listtoloadto){
+        ArrayList<Student> test=null;
+
+
+        //nu är det dags att ta upp object från hårdisk
+        try {
+            FileInputStream fileIn = new FileInputStream(fileToLoad+".ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            test = (ArrayList<Student>) in.readObject();
+            in.close();
+            fileIn.close();
+            this.students = test;
+
+
+        } catch (IOException i) {
+
+        } catch (ClassNotFoundException c) {}
+
+
+    }
+
+
+
 
 
 }
