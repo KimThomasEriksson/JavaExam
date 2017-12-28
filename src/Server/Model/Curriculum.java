@@ -35,7 +35,7 @@ public class Curriculum{
     }
 
     public boolean addTeacher(Teacher newTeacher){
-        if(teacher != null){
+        if(teacher == null){
             this.teacher = newTeacher;
             return true;
         }
@@ -63,19 +63,15 @@ public class Curriculum{
     }
 
     public void passStudent(Student studentToPass){
-        //studentToPass.completeCourse(this.course, true);
+        studentToPass.completeCourse(this.course, true);
     }
 
     public void failStudent(Student studentToPass){
-        //studentToPass.completeCourse(this.course, false);
+        studentToPass.completeCourse(this.course, false);
     }
 
     public Course getCourse() {
         return course;
-    }
-
-    public static int getNumberOfCurricilum() {
-        return numberOfCurricilum;
     }
 
     public int getCurricilumID() {
