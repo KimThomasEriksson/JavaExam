@@ -152,5 +152,32 @@ public class Unittest {
 
     }
 
+    @Test
+    public void testSchool(){
+        School school = new School("Dice School", "Kungsgatan 16");
+        assertEquals(school.getAdress(), "Kungsgatan 16");
+        assertEquals(school.getName(), "Dice School");
+
+        school.addTeacher("Kim", "Eriksson", "kim@school.se", "1234", 1996, 26000, "Math");
+        school.addTeacher("Kim", "Eriksson", "kim2@school.se", "1234", 1996, 26000, "Math");
+        assertEquals(school.getTeachers().size(), 2);
+        school.addTeacher("Kim", "Eriksson", "kim@school.se", "1234", 1996, 26000, "Math");
+        assertEquals(school.getTeachers().size(), 2);
+
+        school.addCource("Math A", "Math", 50, 2);
+
+        school.addStudent("Kim", "Eriksson", "kim@school.se", "1234", 1996);
+        assertEquals(school.getStudents().size(), 1);
+        school.addStudent("Kim", "Eriksson", "kim@school.se", "1234", 1996);
+        assertEquals(school.getStudents().size(),1);
+        school.addStudent("Kim", "Eriksson", "kim2@school.se", "1234", 1996);
+        assertEquals(school.getStudents().size(),2);
+
+        school.addCurriclum(school.getCourses().get(0), school.getTeachers().get(0), school.getStudents());
+        assertEquals(school.getCurriculum().size(), 1);
+
+
+    }
+
 
 }
