@@ -62,7 +62,7 @@ public class Student extends User {
         return true;
     }
 
-    public boolean completeCourse(Course completedCourse,boolean completed){
+    public boolean completeCourse(Course completedCourse, boolean completed){
         if(currentCourses.contains(completedCourse)){
             if(completed){
                 completedCourses.add(completedCourse);
@@ -92,22 +92,7 @@ public class Student extends User {
         return failedCourses;
     }
 
-    // EJ KLAR
-/*
-    public void saveStudentToFile(String fileName) throws FileNotFoundException {
-        FileOutputStream fileOut = new FileOutputStream(fileName);
-        try {
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            for (int i = 0; i <this.students.size(); i++) {
-                out.writeObject(User);
 
-            }
-        out.close();
-        fileOut.close();
-        }   catch (IOException i) {
 
-        }
 
-    }
-    */
 }
