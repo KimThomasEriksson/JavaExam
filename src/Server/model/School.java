@@ -135,5 +135,20 @@ public class School {
     public ArrayList<Student> getStudents() {
         return students;
     }
+
+    //EJ KLAR
+   public static void saveUsers(Student studets){
+      try {
+         FileOutputStream fileOut =
+                 new FileOutputStream("students.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(ArrayList<Student>);
+         out.close();
+         fileOut.close();
+      } catch (IOException i) {
+
+      }
+   }
+
 }
 
