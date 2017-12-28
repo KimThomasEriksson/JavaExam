@@ -1,4 +1,4 @@
-package Server.model;
+package Model;
 
 public class School {
    private String Name;
