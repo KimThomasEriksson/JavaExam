@@ -137,21 +137,45 @@ public class School implements AdminToSchool{
         return students;
     }
 
-    //EJ KLAR
-    /*
-   public static void saveUsers(Student studets){
+
+   public void saveStudents(Student students){
       try {
-         FileOutputStream fileOut =
-                 new FileOutputStream("students.ser");
+         FileOutputStream fileOut = new FileOutputStream("students.ser");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(ArrayList<Student>);
+         for (int i = 0; i<this.students.size(); i++){
+             out.writeObject(this.students.get(i) + "\n");
+         }
          out.close();
          fileOut.close();
       } catch (IOException i) {
 
       }
 
-   }*/
+   }
+
+   public void readStudents(Student students) {
+       String line;
+       try {
+           FileInputStream fileIn = new FileInputStream("students.ser");
+           ObjectInputStream in = new ObjectInputStream(fileIn);
+           if (!fileIn.ready()) {
+               throw new IOException();
+           }
+           while ((line = fileIn.readLine()) != null) {
+               this.students.add(line);
+           }
+           //Student student = (Employee) in.readObject();
+           in.close();
+           fileIn.close();
+
+
+       } catch (IOException i) {
+
+       } catch (ClassNotFoundException c) {
+       }
+
+   }
+
 
 }
 
