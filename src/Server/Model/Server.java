@@ -1,4 +1,5 @@
 package Server.Model;
+import Server.Controller.Main;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -7,8 +8,20 @@ import java.net.SocketTimeoutException;
 
 public class Server implements Runnable {
     Socket clientSocket;
+    String email;
+    String password;
+    Boolean teacher;
+    Boolean student;
+    Boolean admin;
+    Boolean loggedIn;
+    School school;
+
     Server(Socket clientSocket) {
         this.clientSocket = clientSocket;
+        this.loggedIn=false;
+        this.teacher=false;
+        this.student=false;
+        this.admin=false;
     }
 
 
@@ -46,10 +59,13 @@ public class Server implements Runnable {
             while(value) {
                 //String rec=in.
                 String recived=in.readUTF();
-                System.out.println("form client: " + recived.toString());
-                if (recived.equals("false")){
-                    value=false;
-                }
+                String[] parts = recived.split(",");
+                this.password = parts[0];
+                this.email = parts[1];
+
+
+
+
             }
             clientSocket.close();
 
