@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LogIn{
-
+        Stage mainWindow;
         public static void display(Stage parentStage){
             Stage mainWindow = parentStage;
 
@@ -45,7 +45,7 @@ public class LogIn{
             //Login
             Button loginButton = new Button("Log In");
             grid.add(loginButton, 2, 1, 1,1);
-            loginButton.setOnAction(e -> login(emailInput, passInput, window));
+            loginButton.setOnAction(e -> login(emailInput, passInput, window, mainWindow));
 
             //Text
 
@@ -64,15 +64,16 @@ public class LogIn{
         }
 
 
-    private static boolean login(TextField email, TextField password, Stage logInWindow) {
+    private static void login(TextField email, TextField password, Stage logInWindow, Stage mainWindow) {
         if (email.getText().length() != 0 && password.getText().length() != 0) {
-            System.out.println(email.getText());
-            System.out.println(password.getText());
-            logInWindow.close();
-            return true;
+            if(email.getText().equals("student")){
+
+                //mainWindow.setScene(StudentScene.newScene);
+                logInWindow.close();
+            }
+
         } else {
-            System.out.println(false);
-            return false;
+            AlertBox.alert("Error", "Wrong email or password");
         }
 
     }
