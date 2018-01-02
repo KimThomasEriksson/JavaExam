@@ -1,5 +1,5 @@
 package Client.View;
-
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,33 +10,42 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Stage;
 import java.util.ArrayList;
 
-public class StudentScene {
+public class StudentSceneOld extends Application{
 
-    public static Scene createScene() {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         ArrayList<String[]> currentList = new ArrayList<>();
         ArrayList<String[]> completedList = new ArrayList<>();
         ArrayList<String[]> failedList = new ArrayList<>();
         ArrayList<String[]> restCourseList = new ArrayList<>();
-        String[] course1 = {"Math A", "Mathmatics", "100", "Peter Brymer"};
+        String[] course1 =  {"Math A", "Mathmatics", "100", "Peter Brymer"};
         completedList.add(course1);
-        String[] course2 = {"Math B", "Mathmatics", "100", "Peter Brymer"};
+        String[] course2 =  {"Math B", "Mathmatics", "100", "Peter Brymer"};
         completedList.add(course2);
-        String[] course3 = {"Math C", "Mathmatics", "100", "Peter Brymer"};
+        String[] course3 =  {"Math C", "Mathmatics", "100", "Peter Brymer"};
         failedList.add(course3);
-        String[] course4 = {"Math D", "Mathmatics", "100", "Peter Brymer"};
+        String[] course4 =  {"Math D", "Mathmatics", "100", "Peter Brymer"};
         currentList.add(course4);
-        String[] course5 = {"Math E", "Mathmatics", "100", "Peter Brymer"};
+        String[] course5 =  {"Math E", "Mathmatics", "100", "Peter Brymer"};
         currentList.add(course5);
-        String[] course6 = {"Math F", "Mathmatics", "100", "Peter Brymer"};
+        String[] course6 =  {"Math F", "Mathmatics", "100", "Peter Brymer"};
         failedList.add(course6);
         restCourseList.add(course1);
         restCourseList.add(course2);
 
 
+        Stage window = primaryStage;
+
         BorderPane root = new BorderPane();
+        window.setMinWidth(800);
+        window.setMinHeight(600);
 
         // Top
         HBox topBox = new HBox();
@@ -70,7 +79,7 @@ public class StudentScene {
         fNameLabel.setId("nameLabel");
 
         Label fName = new Label("Kim");
-        studentCenter.add(fName, 1, 1, 1, 1);
+        studentCenter.add(fName, 1,1,1,1);
         fName.setId("infoLabel");
 
         Label lNameLabel = new Label("Last Name:");
@@ -78,23 +87,23 @@ public class StudentScene {
         lNameLabel.setId("nameLabel");
 
         Label lName = new Label("Eriksson");
-        studentCenter.add(lName, 1, 2, 1, 1);
+        studentCenter.add(lName, 1,2,1,1);
         lName.setId("infoLabel");
 
         Label emailLabel = new Label("Email:");
-        studentCenter.add(emailLabel, 2, 1, 1, 1);
+        studentCenter.add(emailLabel, 2,1,1,1);
         emailLabel.setId("nameLabel");
 
         Label email = new Label("kim@school.se");
-        studentCenter.add(email, 3, 1, 1, 1);
+        studentCenter.add(email, 3,1,1,1);
         email.setId("infoLabel");
 
         Label totalPointsLabel = new Label("Total points:");
-        studentCenter.add(totalPointsLabel, 2, 2, 1, 1);
+        studentCenter.add(totalPointsLabel, 2, 2,1,1);
         totalPointsLabel.setId("nameLabel");
 
         Label totalPoints = new Label("100");
-        studentCenter.add(totalPoints, 3, 2, 1, 1);
+        studentCenter.add(totalPoints, 3,2,1,1);
         totalPoints.setId("infoLabel");
 
         //Center Current
@@ -112,20 +121,20 @@ public class StudentScene {
         currentCenter.add(currentLabel, 0, 0, 1, 1);
 
         ListView<String> currentCourseList = new ListView<>();
-        for (int i = 0; i < currentList.size(); i++) {
+        for(int i =0; i < currentList.size();i++){
             currentCourseList.getItems().add(currentList.get(i)[0]);
         }
 
 
-        currentCenter.add(currentCourseList, 0, 1, 1, 5);
+        currentCenter.add(currentCourseList, 0, 1, 1,5);
 
 
         Label courseNameLabel = new Label("Course Name:");
-        currentCenter.add(courseNameLabel, 1, 1, 1, 1);
+        currentCenter.add(courseNameLabel, 1,1,1,1);
         courseNameLabel.setId("nameLabel");
 
         Label courseName = new Label();
-        currentCenter.add(courseName, 2, 1, 1, 1);
+        currentCenter.add(courseName, 2,1,1,1);
         courseName.setId("infoLabel");
 
         Label subjectLabel = new Label("Subject:");
@@ -133,27 +142,27 @@ public class StudentScene {
         subjectLabel.setId("nameLabel");
 
         Label subject = new Label();
-        currentCenter.add(subject, 2, 2, 1, 1);
+        currentCenter.add(subject, 2,2,1,1);
         subject.setId("infoLabel");
 
         Label pointsLabel = new Label("Points:");
-        currentCenter.add(pointsLabel, 1, 3, 1, 1);
+        currentCenter.add(pointsLabel, 1,3,1,1);
         pointsLabel.setId("nameLabel");
 
         Label points = new Label();
-        currentCenter.add(points, 2, 3, 1, 1);
+        currentCenter.add(points, 2,3,1,1);
         points.setId("infoLabel");
 
         Label teacherLabel = new Label("Teacher:");
-        currentCenter.add(teacherLabel, 1, 4, 1, 1);
+        currentCenter.add(teacherLabel, 1,4,1,1);
         teacherLabel.setId("nameLabel");
 
         Label teacher = new Label();
-        currentCenter.add(teacher, 2, 4, 1, 1);
+        currentCenter.add(teacher, 2,4,1,1);
         teacher.setId("infoLabel");
 
 
-        currentCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+        currentCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
             String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, currentList);
             courseName.setText(selectedCourse[0]);
             subject.setText(selectedCourse[1]);
@@ -175,18 +184,18 @@ public class StudentScene {
         completedCenter.add(completedLabel, 0, 0, 1, 1);
 
         ListView<String> completedCourseList = new ListView<>();
-        for (int i = 0; i < completedList.size(); i++) {
+        for(int i =0; i < completedList.size();i++){
             completedCourseList.getItems().add(completedList.get(i)[0]);
         }
 
-        completedCenter.add(completedCourseList, 0, 1, 1, 5);
+        completedCenter.add(completedCourseList, 0, 1, 1,5);
 
         Label compCourseNameLabel = new Label("Course Name:");
-        completedCenter.add(compCourseNameLabel, 1, 1, 1, 1);
+        completedCenter.add(compCourseNameLabel, 1,1,1,1);
         compCourseNameLabel.setId("nameLabel");
 
         Label compCourseName = new Label();
-        completedCenter.add(compCourseName, 2, 1, 1, 1);
+        completedCenter.add(compCourseName, 2,1,1,1);
         compCourseName.setId("infoLabel");
 
         Label compSubjectLabel = new Label("Subject:");
@@ -194,27 +203,27 @@ public class StudentScene {
         compSubjectLabel.setId("nameLabel");
 
         Label compSubject = new Label();
-        completedCenter.add(compSubject, 2, 2, 1, 1);
+        completedCenter.add(compSubject, 2,2,1,1);
         compSubject.setId("infoLabel");
 
         Label compPointsLabel = new Label("Points:");
-        completedCenter.add(compPointsLabel, 1, 3, 1, 1);
+        completedCenter.add(compPointsLabel, 1,3,1,1);
         compPointsLabel.setId("nameLabel");
 
         Label compPoints = new Label();
-        completedCenter.add(compPoints, 2, 3, 1, 1);
+        completedCenter.add(compPoints, 2,3,1,1);
         compPoints.setId("infoLabel");
 
         Label compTeacherLabel = new Label("Teacher:");
-        completedCenter.add(compTeacherLabel, 1, 4, 1, 1);
+        completedCenter.add(compTeacherLabel, 1,4,1,1);
         compTeacherLabel.setId("nameLabel");
 
         Label compTeacher = new Label();
-        completedCenter.add(compTeacher, 2, 4, 1, 1);
+        completedCenter.add(compTeacher, 2,4,1,1);
         compTeacher.setId("infoLabel");
 
 
-        completedCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+        completedCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
             String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, completedList);
             compCourseName.setText(selectedCourse[0]);
             compSubject.setText(selectedCourse[1]);
@@ -236,18 +245,18 @@ public class StudentScene {
         failedCenter.add(failedLabel, 0, 0, 1, 1);
 
         ListView<String> failedCourseList = new ListView<>();
-        for (int i = 0; i < failedList.size(); i++) {
+        for(int i =0; i < failedList.size();i++){
             failedCourseList.getItems().add(failedList.get(i)[0]);
         }
 
-        failedCenter.add(failedCourseList, 0, 1, 1, 5);
+        failedCenter.add(failedCourseList, 0, 1, 1,5);
 
         Label failedCourseNameLabel = new Label("Course Name:");
-        failedCenter.add(failedCourseNameLabel, 1, 1, 1, 1);
+        failedCenter.add(failedCourseNameLabel, 1,1,1,1);
         failedCourseNameLabel.setId("nameLabel");
 
         Label failedCourseName = new Label();
-        failedCenter.add(failedCourseName, 2, 1, 1, 1);
+        failedCenter.add(failedCourseName, 2,1,1,1);
         failedCourseName.setId("infoLabel");
 
         Label failedSubjectLabel = new Label("Subject:");
@@ -255,27 +264,27 @@ public class StudentScene {
         failedSubjectLabel.setId("nameLabel");
 
         Label failedSubject = new Label();
-        failedCenter.add(failedSubject, 2, 2, 1, 1);
+        failedCenter.add(failedSubject, 2,2,1,1);
         failedSubject.setId("infoLabel");
 
         Label failedPointsLabel = new Label("Points:");
-        failedCenter.add(failedPointsLabel, 1, 3, 1, 1);
+        failedCenter.add(failedPointsLabel, 1,3,1,1);
         failedPointsLabel.setId("nameLabel");
 
         Label failedPoints = new Label();
-        failedCenter.add(failedPoints, 2, 3, 1, 1);
+        failedCenter.add(failedPoints, 2,3,1,1);
         failedPoints.setId("infoLabel");
 
         Label failedTeacherLabel = new Label("Teacher:");
-        failedCenter.add(failedTeacherLabel, 1, 4, 1, 1);
+        failedCenter.add(failedTeacherLabel, 1,4,1,1);
         failedTeacherLabel.setId("nameLabel");
 
         Label failedTeacher = new Label();
-        failedCenter.add(failedTeacher, 2, 4, 1, 1);
+        failedCenter.add(failedTeacher, 2,4,1,1);
         failedTeacher.setId("infoLabel");
 
 
-        failedCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+        failedCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
             String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, failedList);
             failedCourseName.setText(selectedCourse[0]);
             failedSubject.setText(selectedCourse[1]);
@@ -297,18 +306,18 @@ public class StudentScene {
         newCourseCenter.add(newCoursesLabel, 0, 0, 1, 1);
 
         ListView<String> newCourseList = new ListView<>();
-        for (int i = 0; i < restCourseList.size(); i++) {
+        for(int i =0; i < restCourseList.size();i++){
             newCourseList.getItems().add(restCourseList.get(i)[0]);
         }
 
-        newCourseCenter.add(newCourseList, 0, 1, 1, 5);
+        newCourseCenter.add(newCourseList, 0, 1, 1,5);
 
         Label newCourseNameLabel = new Label("Course Name:");
-        newCourseCenter.add(newCourseNameLabel, 1, 1, 1, 1);
+        newCourseCenter.add(newCourseNameLabel, 1,1,1,1);
         newCourseNameLabel.setId("nameLabel");
 
         Label newCourseName = new Label();
-        newCourseCenter.add(newCourseName, 2, 1, 1, 1);
+        newCourseCenter.add(newCourseName, 2,1,1,1);
         newCourseName.setId("infoLabel");
 
         Label newSubjectLabel = new Label("Subject:");
@@ -316,36 +325,39 @@ public class StudentScene {
         newSubjectLabel.setId("nameLabel");
 
         Label newSubject = new Label();
-        newCourseCenter.add(newSubject, 2, 2, 1, 1);
+        newCourseCenter.add(newSubject, 2,2,1,1);
         newSubject.setId("infoLabel");
 
         Label newPointsLabel = new Label("Points:");
-        newCourseCenter.add(newPointsLabel, 1, 3, 1, 1);
+        newCourseCenter.add(newPointsLabel, 1,3,1,1);
         newPointsLabel.setId("nameLabel");
 
         Label newPoints = new Label();
-        newCourseCenter.add(newPoints, 2, 3, 1, 1);
+        newCourseCenter.add(newPoints, 2,3,1,1);
         newPoints.setId("infoLabel");
 
         Label newTeacherLabel = new Label("Teacher:");
-        newCourseCenter.add(newTeacherLabel, 1, 4, 1, 1);
+        newCourseCenter.add(newTeacherLabel, 1,4,1,1);
         newTeacherLabel.setId("nameLabel");
 
         Label newTeacher = new Label();
-        newCourseCenter.add(newTeacher, 2, 4, 1, 1);
+        newCourseCenter.add(newTeacher, 2,4,1,1);
         newTeacher.setId("infoLabel");
 
         Button selectCourseButton = new Button("Apply");
 
-        newCourseCenter.add(selectCourseButton, 1, 5, 1, 1);
+        newCourseCenter.add(selectCourseButton, 1,5, 1, 1);
 
-        newCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+        newCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
             String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, restCourseList);
             newCourseName.setText(selectedCourse[0]);
             newSubject.setText(selectedCourse[1]);
             newPoints.setText(selectedCourse[2]);
             newTeacher.setText(selectedCourse[3]);
         });
+
+
+
 
 
         //Left
@@ -385,11 +397,17 @@ public class StudentScene {
         //Bottom
 
 
+
+
         //Start scene
         root.setCenter(studentCenter);
 
         Scene newScene = new Scene(root, 800, 600);
         newScene.getStylesheets().add("Client/View/StudentSceneCSS.css");
-        return newScene;
+        window.setScene(newScene);
+        window.show();
     }
+
+
+
 }

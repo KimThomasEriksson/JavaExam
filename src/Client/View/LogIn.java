@@ -68,7 +68,8 @@ public class LogIn{
         if (email.getText().length() != 0 && password.getText().length() != 0) {
             if(email.getText().equals("student")){
 
-                //mainWindow.setScene(StudentScene.newScene);
+                Scene newScene = StudentScene.createScene();
+                mainWindow.setScene(newScene);
                 logInWindow.close();
             }
 
