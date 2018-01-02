@@ -1,4 +1,5 @@
 package Client.View;
+import Client.Model.School;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -6,14 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.sql.Time;
+
 
 public class ClientGUI extends Application{
 
     Stage window;
     Button button;
     GridPane grid = new GridPane();
+    static School school;
 
-    public static void main(String[] args) {
+    public static void main(String[] args, School newSchool) {
+        school = newSchool;
         launch(args);
     }
 
@@ -32,7 +37,13 @@ public class ClientGUI extends Application{
 
         window.setScene(startScene);
         window.show();
-        LogIn.display(window);
+        Thread.sleep(1000);
+        LogIn.display(window, school);
+
+    }
+
+    public void setSchool(School school){
+        this.school = school;
 
     }
 

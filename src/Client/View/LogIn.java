@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.Main;
+import Client.Model.School;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +14,7 @@ import javafx.stage.Stage;
 
 public class LogIn{
         Stage mainWindow;
-        public static void display(Stage parentStage){
+        public static void display(Stage parentStage, School school){
             Stage mainWindow = parentStage;
 
             Stage window = new Stage();
@@ -45,7 +47,14 @@ public class LogIn{
             //Login
             Button loginButton = new Button("Log In");
             grid.add(loginButton, 2, 1, 1,1);
-            loginButton.setOnAction(e -> login(emailInput, passInput, window, mainWindow));
+            loginButton.setOnAction(e -> {
+                if(login(emailInput, passInput, window, mainWindow, school)){
+                    window.close();
+                }else{
+                    AlertBox.alert("Error", "Wrong email or password");
+                }
+
+            });
 
             //Text
 
@@ -64,23 +73,23 @@ public class LogIn{
         }
 
 
-    private static void login(TextField email, TextField password, Stage logInWindow, Stage mainWindow) {
+    private static boolean login(TextField email, TextField password, Stage logInWindow, Stage mainWindow, School school) {
         if (email.getText().length() != 0 && password.getText().length() != 0) {
-            if(email.getText().equals("student")){
-
-                Scene newScene = StudentScene.createScene();
-                mainWindow.setScene(newScene);
-                logInWindow.close();
-            }
-            else if(email.getText().equals("teacher")){
-                Scene newScene = TeacherScene.createTeacherScene();
-                mainWindow.setScene(newScene);
-                logInWindow.close();
-            }
+            boolean foundEmail = false;
+            for(int i=0; i<school.getStudents().size();i++){
+                if(school.getStudents().get(i).getEmail().equals(email.getText())){
+                    foundEmail = true;
+                    if(school.getStudents().get(i).getPassword().equals(password.getText())){
+                        mainWindow.setScene(StudentScene.createScene());
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }return false;
 
         } else {
-            AlertBox.alert("Error", "Wrong email or password");
-        }
+            return false; }
 
     }
 
