@@ -1,5 +1,6 @@
 package Client.View;
 
+import Client.Model.Student;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,25 +16,7 @@ import java.util.ArrayList;
 
 public class StudentScene {
 
-    public static Scene createScene() {
-        ArrayList<String[]> currentList = new ArrayList<>();
-        ArrayList<String[]> completedList = new ArrayList<>();
-        ArrayList<String[]> failedList = new ArrayList<>();
-        ArrayList<String[]> restCourseList = new ArrayList<>();
-        String[] course1 = {"Math A", "Mathmatics", "100", "Peter Brymer"};
-        completedList.add(course1);
-        String[] course2 = {"Math B", "Mathmatics", "100", "Peter Brymer"};
-        completedList.add(course2);
-        String[] course3 = {"Math C", "Mathmatics", "100", "Peter Brymer"};
-        failedList.add(course3);
-        String[] course4 = {"Math D", "Mathmatics", "100", "Peter Brymer"};
-        currentList.add(course4);
-        String[] course5 = {"Math E", "Mathmatics", "100", "Peter Brymer"};
-        currentList.add(course5);
-        String[] course6 = {"Math F", "Mathmatics", "100", "Peter Brymer"};
-        failedList.add(course6);
-        restCourseList.add(course1);
-        restCourseList.add(course2);
+    public static Scene createScene(Student student) {
 
 
         BorderPane root = new BorderPane();
@@ -69,7 +52,7 @@ public class StudentScene {
         studentCenter.add(fNameLabel, 0, 1, 1, 1);
         fNameLabel.setId("nameLabel");
 
-        Label fName = new Label("Kim");
+        Label fName = new Label(student.getFirstName());
         studentCenter.add(fName, 1, 1, 1, 1);
         fName.setId("infoLabel");
 
@@ -77,7 +60,7 @@ public class StudentScene {
         studentCenter.add(lNameLabel, 0, 2, 1, 1);
         lNameLabel.setId("nameLabel");
 
-        Label lName = new Label("Eriksson");
+        Label lName = new Label(student.getLastName());
         studentCenter.add(lName, 1, 2, 1, 1);
         lName.setId("infoLabel");
 
@@ -85,7 +68,7 @@ public class StudentScene {
         studentCenter.add(emailLabel, 2, 1, 1, 1);
         emailLabel.setId("nameLabel");
 
-        Label email = new Label("kim@school.se");
+        Label email = new Label(student.getLastName());
         studentCenter.add(email, 3, 1, 1, 1);
         email.setId("infoLabel");
 
@@ -93,7 +76,7 @@ public class StudentScene {
         studentCenter.add(totalPointsLabel, 2, 2, 1, 1);
         totalPointsLabel.setId("nameLabel");
 
-        Label totalPoints = new Label("100");
+        Label totalPoints = new Label(Integer.toString(student.getTotalPoints()));
         studentCenter.add(totalPoints, 3, 2, 1, 1);
         totalPoints.setId("infoLabel");
 
@@ -112,8 +95,8 @@ public class StudentScene {
         currentCenter.add(currentLabel, 0, 0, 1, 1);
 
         ListView<String> currentCourseList = new ListView<>();
-        for (int i = 0; i < currentList.size(); i++) {
-            currentCourseList.getItems().add(currentList.get(i)[0]);
+        for (int i = 0; i < student.getCurrentCourses().size(); i++) {
+            currentCourseList.getItems().add(student.getCurrentCourses().get(i).getName());
         }
 
 

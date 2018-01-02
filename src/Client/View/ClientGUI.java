@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.sql.Time;
 
 
 public class ClientGUI extends Application{
@@ -37,13 +36,7 @@ public class ClientGUI extends Application{
 
         window.setScene(startScene);
         window.show();
-        Thread.sleep(1000);
         LogIn.display(window, school);
-
-    }
-
-    public void setSchool(School school){
-        this.school = school;
 
     }
 

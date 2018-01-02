@@ -75,23 +75,57 @@ public class LogIn{
 
     private static boolean login(TextField email, TextField password, Stage logInWindow, Stage mainWindow, School school) {
         if (email.getText().length() != 0 && password.getText().length() != 0) {
-            boolean foundEmail = false;
-            for(int i=0; i<school.getStudents().size();i++){
-                if(school.getStudents().get(i).getEmail().equals(email.getText())){
-                    foundEmail = true;
-                    if(school.getStudents().get(i).getPassword().equals(password.getText())){
-                        mainWindow.setScene(StudentScene.createScene());
+            boolean foundEmailStudent = false;
+            boolean foundEmailTeacher = false;
+            boolean foundEmailAdmin = false;
+
+            for (int i = 0; i < school.getStudents().size(); i++) {
+                if (school.getStudents().get(i).getEmail().equals(email.getText())) {
+                    foundEmailStudent = true;
+                    if (school.getStudents().get(i).getPassword().equals(password.getText())) {
+                        mainWindow.setScene(StudentScene.createScene(school.getStudents().get(i)));
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
-            }return false;
+            }
+            if (!foundEmailStudent) {
+                for (int l = 0; l < school.getTeachers().size(); l++) {
+                    if (school.getTeachers().get(l).getEmail().equals(email.getText())) {
+                        foundEmailTeacher = true;
+                        if (school.getTeachers().get(l).getPassword().equals(password.getText())) {
+                            mainWindow.setScene(TeacherScene.createTeacherScene());
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (!(foundEmailStudent || foundEmailTeacher)) {
+                for (int i = 0; i < school.getAdmins().size(); i++) {
+                    if (school.getAdmins().get(i).getEmail().equals(email.getText())) {
+                        foundEmailAdmin = true;
+                        if (school.getAdmins().get(i).getPassword().equals(password.getText())) {
+                            mainWindow.setScene(TeacherScene.createTeacherScene());
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+            if(!(foundEmailAdmin || foundEmailStudent ||foundEmailTeacher)){
+                    return false;
+            }
 
-        } else {
-            return false; }
-
+            } else {
+                return false;
+            }
+        return false;
     }
+
 
      private static void closeWindow(Stage logInWindow, Stage parentWindow){
          logInWindow.close();

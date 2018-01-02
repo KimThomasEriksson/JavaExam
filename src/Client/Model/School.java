@@ -10,6 +10,7 @@ public class School implements AdminToSchool{
    private ArrayList<Course> courses;
    private ArrayList<Teacher> teachers;
    private ArrayList<Student>students;
+   private ArrayList<Admin>admins;
 
    public School(String name, String adress) {
       Name = name;
@@ -18,6 +19,7 @@ public class School implements AdminToSchool{
       this.courses =new ArrayList<Course>();
       this.teachers =new ArrayList<Teacher>();
       this.students = new ArrayList<Student>();
+      this.admins = new ArrayList<>();
    }
 
     public void addTeacher(String firstName,String lastName,String email,String password,int birthyear,int salary,String knownSubject){
@@ -58,15 +60,27 @@ public class School implements AdminToSchool{
 
 
    public void addStudent(String firstName,String lastName,String email,String password,int birthyear){
-       for (int i = 0; i < this.students.size(); i++) {
-           if (this.students.get(i).getEmail().equals(email)) {
-               return;
-           }
-       }
-       Student newStudent= new Student(firstName,lastName,email,password,birthyear);
-       this.students.add(newStudent);
+        for (int i = 0; i < this.students.size(); i++) {
+            if (this.students.get(i).getEmail().equals(email)) {
+                return;
+            }
+        }
+        Student newStudent= new Student(firstName,lastName,email,password,birthyear);
+        this.students.add(newStudent);
 
-   }
+    }
+
+    public void addAdmin(String firstName,String lastName,String email,String password,int birthyear){
+        for (int i = 0; i < this.admins.size(); i++) {
+            if (this.admins.get(i).getEmail().equals(email)) {
+                return;
+            }
+        }
+        Admin newAdmin= new Admin(firstName,lastName,email,password,birthyear);
+        this.admins.add(newAdmin);
+
+    }
+
 
 
     public void addCource(String name,String subject,int points,int numberOfStudents){
@@ -138,46 +152,50 @@ public class School implements AdminToSchool{
         return students;
     }
 
-/*
-   public void saveStudents(Student students){
-      try {
-         FileOutputStream fileOut = new FileOutputStream("students.ser");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         for (int i = 0; i<this.students.size(); i++){
-             out.writeObject(this.students.get(i) + "\n");
-         }
-         out.close();
-         fileOut.close();
-      } catch (IOException i) {
+    public ArrayList<Admin> getAdmins() {
+        return admins;
+    }
 
-      }
+    /*
+       public void saveStudents(Student students){
+          try {
+             FileOutputStream fileOut = new FileOutputStream("students.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut);
+             for (int i = 0; i<this.students.size(); i++){
+                 out.writeObject(this.students.get(i) + "\n");
+             }
+             out.close();
+             fileOut.close();
+          } catch (IOException i) {
 
-   }
+          }
 
-   public void readStudents(Student students) {
-       String line;
-       try {
-           FileInputStream fileIn = new FileInputStream("students.ser");
-           ObjectInputStream in = new ObjectInputStream(fileIn);
-           if (!fileIn.ready()) {
-               throw new IOException();
-           }
-           while ((line = fileIn.readLine()) != null) {
-               this.students.add(line);
-           }
-           //Student student = (Employee) in.readObject();
-           in.close();
-           fileIn.close();
-
-
-       } catch (IOException i) {
-
-       } catch (ClassNotFoundException c) {
        }
 
-   }
+       public void readStudents(Student students) {
+           String line;
+           try {
+               FileInputStream fileIn = new FileInputStream("students.ser");
+               ObjectInputStream in = new ObjectInputStream(fileIn);
+               if (!fileIn.ready()) {
+                   throw new IOException();
+               }
+               while ((line = fileIn.readLine()) != null) {
+                   this.students.add(line);
+               }
+               //Student student = (Employee) in.readObject();
+               in.close();
+               fileIn.close();
 
-*/
+
+           } catch (IOException i) {
+
+           } catch (ClassNotFoundException c) {
+           }
+
+       }
+
+    */
     public void functoSaveStudent(ArrayList<Student> student) {
 
 

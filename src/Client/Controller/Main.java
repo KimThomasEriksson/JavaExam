@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Main {
 
+
     public static void main(String[] args) {
         School diceSchool = new School("Dice School", "Kungsgatan 15");
 
@@ -17,18 +18,18 @@ public class Main {
         diceSchool.addCource("French","French", 100, 25);
         diceSchool.addCource("Physics A", "Physics", 100, 25);
 
-        diceSchool.addTeacher("Kim", "Svensson", "kim@diceSchool.se", "1234", 1994, 26000, "Mathematics");
-        diceSchool.addTeacher("Peter", "Brymer", "peter@diceSchool.se", "1234", 1994, 26000, "Spanish");
-        diceSchool.addTeacher("Dan", "Berg", "dan@diceSchool.se", "1234", 1994, 26000, "French");
+        diceSchool.addTeacher("Kim", "Svensson", "kim@diceschool.se", "1234", 1994, 26000, "Mathematics");
+        diceSchool.addTeacher("Peter", "Brymer", "peter@diceschool.se", "1234", 1994, 26000, "Spanish");
+        diceSchool.addTeacher("Dan", "Berg", "dan@diceschool.se", "1234", 1994, 26000, "French");
         ArrayList<String> teacherList = new ArrayList<>();
         teacherList.add("Mathematics");
         teacherList.add("Physics");
-        diceSchool.addTeacher("Johanna", "Olsson", "johanna@diceSchool.se", "1234", 1994, 26000, teacherList);
+        diceSchool.addTeacher("Johanna", "Olsson", "johanna@diceschool.se", "1234", 1994, 26000, teacherList);
 
-        diceSchool.addStudent("Sven", "Larsson", "sven@diceSchool.se", "1234", 1994);
-        diceSchool.addStudent("Håkan", "Svensson", "hakan@diceSchool.se", "1234", 1994);
-        diceSchool.addStudent("Loke", "Svalbardsson", "loke@diceSchool.se", "1234", 1994);
-        diceSchool.addStudent("Björn", "Dankelan", "bjorn@diceSchool.se", "1234", 1994);
+        diceSchool.addStudent("Sven", "Larsson", "sven@diceschool.se", "1234", 1994);
+        diceSchool.addStudent("Håkan", "Svensson", "hakan@diceschool.se", "1234", 1994);
+        diceSchool.addStudent("Loke", "Svalbardsson", "loke@diceschool.se", "1234", 1994);
+        diceSchool.addStudent("Björn", "Dankelan", "bjorn@diceschool.se", "1234", 1994);
 
         diceSchool.addCurriclum(diceSchool.getCourses().get(0), diceSchool.getTeachers().get(0));
         diceSchool.addCurriclum(diceSchool.getCourses().get(1), diceSchool.getTeachers().get(1));

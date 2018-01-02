@@ -8,6 +8,7 @@ public class Curriculum implements TeacherToCurriculum{
     private Course course;
     private Teacher teacher;
     private ArrayList<Student> students;
+    private ArrayList<Student> gradedStudents;
 
     public Curriculum(Course course, Teacher teacher, ArrayList<Student> student){
         this.course = course;
@@ -66,10 +67,14 @@ public class Curriculum implements TeacherToCurriculum{
 
     @Override
     public void passStudent(Student studentToPass){
+        gradedStudents.add(studentToPass);
+        students.remove(studentToPass);
         studentToPass.completeCourse(this.course, true);
     }
     @Override
     public void failStudent(Student studentToPass){
+        gradedStudents.add(studentToPass);
+        students.remove(studentToPass);
         studentToPass.completeCourse(this.course, false);
     }
 
