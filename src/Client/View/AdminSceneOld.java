@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class TecherScene extends Application {
+public class AdminSceneOld extends Application {
 
     public static void main(String[] args) {
         launch(args);

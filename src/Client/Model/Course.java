@@ -1,4 +1,4 @@
-package Server.Model;
+package Client.Model;
 
 public class Course{
     private static int numberOfCourses = 0;

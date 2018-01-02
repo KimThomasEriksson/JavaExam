@@ -72,6 +72,11 @@ public class LogIn{
                 mainWindow.setScene(newScene);
                 logInWindow.close();
             }
+            else if(email.getText().equals("teacher")){
+                Scene newScene = TeacherScene.createTeacherScene();
+                mainWindow.setScene(newScene);
+                logInWindow.close();
+            }
 
         } else {
             AlertBox.alert("Error", "Wrong email or password");

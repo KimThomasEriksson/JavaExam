@@ -1,5 +1,4 @@
-package Server.Model;
-import Server.Controller.Main;
+package Client.Model;
 
 import java.io.*;
 import java.net.ServerSocket;
