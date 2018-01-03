@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Model.Course;
+import Client.Model.Curriculum;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -165,18 +167,21 @@ public class AdminSceneOld extends Application {
         currentCenter.add(numberOfStudents, 2,4,1,1);
         numberOfStudents.setId("infoLabel");
 
-        ArrayList<String> buttonChoiceGrade = new ArrayList<>();
-        currentCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, currentList);
-            courseName.setText(selectedCourse[0]);
-            subject.setText(selectedCourse[1]);
-            points.setText(selectedCourse[2]);
-            numberOfStudents.setText(selectedCourse[3]);
-            buttonChoiceGrade.add(newValue);
-        });
+        /*.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            for(Curriculum curriculum: school.getCurriculum()){
+                if(curriculum.getCourse().equals(selectedCourse)){
+                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    break;
+                }
+            }
+        });*/
 
         Button gradeStudentButton = new Button("Grade Student");
-        gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
+        //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
 
         currentCenter.add(gradeStudentButton, 1,5, 1, 1);
 

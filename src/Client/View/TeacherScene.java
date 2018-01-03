@@ -1,5 +1,6 @@
 package Client.View;
 
+import Client.Model.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,31 +16,20 @@ import java.util.ArrayList;
 
 public class TeacherScene {
 
-    public static Scene createTeacherScene(){
-        ArrayList<String[]> currentList = new ArrayList<>();
-        String[] course1 =  {"Math A", "Mathmatics", "100", "25"};
-        currentList.add(course1);
-        String[] course2 =  {"Math B", "Mathmatics", "100", "25"};
-        currentList.add(course2);
-        String[] course3 =  {"Math C", "Mathmatics", "100", "25"};
-        currentList.add(course3);
-        String[] course4 =  {"Math D", "Mathmatics", "100", "25"};
-        currentList.add(course4);
-        String[] course5 =  {"Math E", "Mathmatics", "100", "25"};
-        currentList.add(course5);
-        String[] course6 =  {"Math F", "Mathmatics", "100", "25"};
-        currentList.add(course6);
-
-        ArrayList<String[]> studentList = new ArrayList<>();
-        String[] student1 =  {"Kim", "Eriksson", "100", "25"};
-        String[] student2 =  {"Johanna", "Svensson", "100", "25"};
-        String[] student3 =  {"Dan", "Berg", "100", "25"};
-        studentList.add(student1);
-        studentList.add(student2);
-        studentList.add(student3);
-
+    public static Scene createTeacherScene(Teacher teacher, School school){
 
         BorderPane root = new BorderPane();
+
+        ArrayList<Curriculum> teachersCurriculum = new ArrayList<>();
+        ArrayList<Course> teachersCourse = new ArrayList<>();
+        for(int i = 0; i < school.getCurriculum().size(); i++){
+            if(school.getCurriculum().get(i).getTeacher()==teacher){
+                teachersCurriculum.add(school.getCurriculum().get(i));
+                teachersCourse.add(school.getCurriculum().get(i).getCourse());
+            }
+        }
+
+
 
 
         // Top
@@ -73,7 +63,7 @@ public class TeacherScene {
         teacherCenter.add(fNameLabel, 0, 1, 1, 1);
         fNameLabel.setId("nameLabel");
 
-        Label fName = new Label("Peter");
+        Label fName = new Label(teacher.getFirstName());
         teacherCenter.add(fName, 1,1,1,1);
         fName.setId("infoLabel");
 
@@ -81,7 +71,7 @@ public class TeacherScene {
         teacherCenter.add(lNameLabel, 0, 2, 1, 1);
         lNameLabel.setId("nameLabel");
 
-        Label lName = new Label("Brymer");
+        Label lName = new Label(teacher.getLastName());
         teacherCenter.add(lName, 1,2,1,1);
         lName.setId("infoLabel");
 
@@ -89,7 +79,7 @@ public class TeacherScene {
         teacherCenter.add(emailLabel, 2,1,1,1);
         emailLabel.setId("nameLabel");
 
-        Label email = new Label("peter@school.se");
+        Label email = new Label(teacher.getEmail());
         teacherCenter.add(email, 3,1,1,1);
         email.setId("infoLabel");
 
@@ -97,7 +87,7 @@ public class TeacherScene {
         teacherCenter.add(totalSalaryLabel, 2, 2,1,1);
         totalSalaryLabel.setId("nameLabel");
 
-        Label salary = new Label("26000");
+        Label salary = new Label(Integer.toString(teacher.getSalary()));
         teacherCenter.add(salary, 3,2,1,1);
         salary.setId("infoLabel");
 
@@ -116,8 +106,8 @@ public class TeacherScene {
         currentCenter.add(currentLabel, 0, 0, 1, 1);
 
         ListView<String> currentCourseList = new ListView<>();
-        for(int i =0; i < currentList.size();i++){
-            currentCourseList.getItems().add(currentList.get(i)[0]);
+        for(int i =0; i < teachersCurriculum.size(); i++){
+            currentCourseList.getItems().add(teachersCurriculum.get(i).getCourse().getName());
         }
 
 
@@ -157,17 +147,32 @@ public class TeacherScene {
         numberOfStudents.setId("infoLabel");
 
         ArrayList<String> buttonChoiceGrade = new ArrayList<>();
-        currentCourseList.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, currentList);
-            courseName.setText(selectedCourse[0]);
-            subject.setText(selectedCourse[1]);
-            points.setText(selectedCourse[2]);
-            numberOfStudents.setText(selectedCourse[3]);
+        currentCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, teachersCourse);
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            numberOfStudents.setText(Integer.toString(selectedCourse.getNumberOfStudents()));
             buttonChoiceGrade.add(newValue);
-        });
+                });
+
+
 
         Button gradeStudentButton = new Button("Grade Student");
-        gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
+        gradeStudentButton.setOnAction(event -> {
+            ArrayList<Student> studentList = new ArrayList<>();
+            ArrayList<Curriculum> currentCurricilum = new ArrayList<>();
+            for(int i = 0; i < teachersCurriculum.size(); i++){
+                if(teachersCurriculum.get(i).getCourse().getName().equals(buttonChoiceGrade.get(buttonChoiceGrade.size()-1))){
+                    studentList = teachersCurriculum.get(i).getStudents();
+                    currentCurricilum.add(teachersCurriculum.get(i));
+                    break;
+                }
+            }
+
+            GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList, teacher, currentCurricilum.get(currentCurricilum.size()-1));
+
+        });
 
         currentCenter.add(gradeStudentButton, 1,5, 1, 1);
 

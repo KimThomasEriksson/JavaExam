@@ -16,6 +16,7 @@ public class Curriculum implements TeacherToCurriculum{
         this.students = student;
         this.curricilumID = this.numberOfCurricilum;
         this.numberOfCurricilum++;
+        gradedStudents = new ArrayList<>();
     }
 
     public Curriculum(Course course, Teacher teacher){
@@ -24,6 +25,7 @@ public class Curriculum implements TeacherToCurriculum{
         students = new ArrayList<>();
         this.curricilumID = this.numberOfCurricilum;
         this.numberOfCurricilum++;
+        gradedStudents = new ArrayList<>();
 
     }
 
@@ -32,6 +34,7 @@ public class Curriculum implements TeacherToCurriculum{
         students = new ArrayList<>();
         this.curricilumID = this.numberOfCurricilum;
         this.numberOfCurricilum++;
+        gradedStudents = new ArrayList<>();
 
     }
 

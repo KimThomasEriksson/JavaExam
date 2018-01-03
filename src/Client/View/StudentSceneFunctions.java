@@ -1,13 +1,15 @@
 package Client.View;
 
+import Client.Model.Course;
+
 import java.util.ArrayList;
 
 public class StudentSceneFunctions {
 
-    public static String[] changeSelectedCourse(String newValue, ArrayList<String[]> courseList) {
+    public static Course changeSelectedCourse(String newValue, ArrayList<Course> courseList) {
         int index = 0;
         for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i)[0].equals(newValue)) {
+            if (courseList.get(i).getName().equals(newValue)) {
                 index = i;
                 break;
             }

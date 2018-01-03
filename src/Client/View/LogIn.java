@@ -83,7 +83,7 @@ public class LogIn{
                 if (school.getStudents().get(i).getEmail().equals(email.getText())) {
                     foundEmailStudent = true;
                     if (school.getStudents().get(i).getPassword().equals(password.getText())) {
-                        mainWindow.setScene(StudentScene.createScene(school.getStudents().get(i)));
+                        mainWindow.setScene(StudentScene.createScene(school.getStudents().get(i),school));
                         return true;
                     } else {
                         return false;
@@ -95,7 +95,7 @@ public class LogIn{
                     if (school.getTeachers().get(l).getEmail().equals(email.getText())) {
                         foundEmailTeacher = true;
                         if (school.getTeachers().get(l).getPassword().equals(password.getText())) {
-                            mainWindow.setScene(TeacherScene.createTeacherScene());
+                            mainWindow.setScene(TeacherScene.createTeacherScene(school.getTeachers().get(l), school));
                             return true;
                         } else {
                             return false;
@@ -108,7 +108,7 @@ public class LogIn{
                     if (school.getAdmins().get(i).getEmail().equals(email.getText())) {
                         foundEmailAdmin = true;
                         if (school.getAdmins().get(i).getPassword().equals(password.getText())) {
-                            mainWindow.setScene(TeacherScene.createTeacherScene());
+                            //mainWindow.setScene(TeacherScene.createTeacherScene());
                             return true;
                         } else {
                             return false;

@@ -38,7 +38,7 @@ public class Main {
 
         diceSchool.getCurriculum().get(0).addStudent(diceSchool.getStudents().get(0));
         diceSchool.getCurriculum().get(0).addStudent(diceSchool.getStudents().get(1));
-        diceSchool.getCurriculum().get(0).addStudent(diceSchool.getStudents().get(2));
+        diceSchool.getCurriculum().get(1).addStudent(diceSchool.getStudents().get(2));
 
         ClientGUI client = new ClientGUI();
         client.main(args, diceSchool);

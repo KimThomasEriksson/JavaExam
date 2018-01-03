@@ -1,5 +1,9 @@
 package Client.View;
 
+import Client.Model.Course;
+import Client.Model.Curriculum;
+import Client.Model.Student;
+import Client.Model.Teacher;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 
 public class GradeStudentScene {
 
-    public static void createScene(String courseName, ArrayList<String[]> studentList) {
+    public static void createScene(String courseName, ArrayList<Student> studentList, Teacher teacher, Curriculum curriculum) {
         Stage window = new Stage();
         GridPane gridPane = new GridPane();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -31,13 +35,40 @@ public class GradeStudentScene {
 
         ListView<String> studentListGrade = new ListView<>();
         for(int i =0; i < studentList.size();i++){
-            studentListGrade.getItems().add(studentList.get(i)[0] + " " + studentList.get(i)[1]);
+            studentListGrade.getItems().add(studentList.get(i).getFirstName() + " " + studentList.get(i).getLastName());
         }
         gridPane.add(studentListGrade, 0,1,3,1);
 
+        ArrayList<Student> chosenStudent = new ArrayList<>();
+
+        studentListGrade.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println(newValue);
+            for(Student student: studentList){
+                if((student.getFirstName()+" "+student.getLastName()).equals(newValue)){
+                    chosenStudent.add(student);
+                    System.out.println(chosenStudent.get(chosenStudent.size()-1).getFirstName() + " "+ chosenStudent.get(chosenStudent.size()-1).getLastName());
+                    break;
+                }
+            }
+        });
+
         Button passButton = new Button("Pass student");
+        passButton.setOnAction(event -> {if(chosenStudent.size() > 0){
+            Student lastStudent = chosenStudent.get(chosenStudent.size()-1);
+            curriculum.getTeacher().getTeacherToCurriculum().passStudent(lastStudent);
+            System.out.println("passed");
+            studentList.remove(lastStudent);
+            studentListGrade.getItems().remove(lastStudent.getFirstName()+" "+lastStudent.getLastName());}
+
+        });
 
         Button failButton = new Button("Fail student");
+        failButton.setOnAction(event ->  {if(chosenStudent.size() > 0){
+            Student lastStudent = chosenStudent.get(chosenStudent.size()-1);
+            curriculum.getTeacher().getTeacherToCurriculum().failStudent(lastStudent);
+            studentList.remove(lastStudent);
+            studentListGrade.getItems().remove(lastStudent.getFirstName()+" "+lastStudent.getLastName());}
+        });
 
         Button closeButton = new Button("Close");
         closeButton.setOnAction(event -> window.close());

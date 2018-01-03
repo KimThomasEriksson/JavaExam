@@ -1,5 +1,8 @@
 package Client.View;
 
+import Client.Model.Course;
+import Client.Model.Curriculum;
+import Client.Model.School;
 import Client.Model.Student;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 
 public class StudentScene {
 
-    public static Scene createScene(Student student) {
+    public static Scene createScene(Student student, School school) {
 
 
         BorderPane root = new BorderPane();
@@ -137,11 +140,17 @@ public class StudentScene {
 
 
         currentCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, currentList);
-            courseName.setText(selectedCourse[0]);
-            subject.setText(selectedCourse[1]);
-            points.setText(selectedCourse[2]);
-            teacher.setText(selectedCourse[3]);
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getCurrentCourses());
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            for(Curriculum curriculum: school.getCurriculum()){
+                if(curriculum.getCourse().equals(selectedCourse)){
+                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    break;
+                }
+            }
+
         });
 
         //Center Completed
@@ -158,8 +167,8 @@ public class StudentScene {
         completedCenter.add(completedLabel, 0, 0, 1, 1);
 
         ListView<String> completedCourseList = new ListView<>();
-        for (int i = 0; i < completedList.size(); i++) {
-            completedCourseList.getItems().add(completedList.get(i)[0]);
+        for (int i = 0; i < student.getCompletedCourses().size(); i++) {
+            completedCourseList.getItems().add(student.getCompletedCourses().get(i).getName());
         }
 
         completedCenter.add(completedCourseList, 0, 1, 1, 5);
@@ -198,11 +207,16 @@ public class StudentScene {
 
 
         completedCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, completedList);
-            compCourseName.setText(selectedCourse[0]);
-            compSubject.setText(selectedCourse[1]);
-            compPoints.setText(selectedCourse[2]);
-            compTeacher.setText(selectedCourse[3]);
+        Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getCompletedCourses());
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            for(Curriculum curriculum: school.getCurriculum()){
+                if(curriculum.getCourse().equals(selectedCourse)){
+                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    break;
+                }
+        }
         });
 
         //Center Failed
@@ -219,8 +233,8 @@ public class StudentScene {
         failedCenter.add(failedLabel, 0, 0, 1, 1);
 
         ListView<String> failedCourseList = new ListView<>();
-        for (int i = 0; i < failedList.size(); i++) {
-            failedCourseList.getItems().add(failedList.get(i)[0]);
+        for (int i = 0; i < student.getFailedCourses().size(); i++) {
+            failedCourseList.getItems().add(student.getFailedCourses().get(i).getName());
         }
 
         failedCenter.add(failedCourseList, 0, 1, 1, 5);
@@ -259,11 +273,16 @@ public class StudentScene {
 
 
         failedCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, failedList);
-            failedCourseName.setText(selectedCourse[0]);
-            failedSubject.setText(selectedCourse[1]);
-            failedPoints.setText(selectedCourse[2]);
-            failedTeacher.setText(selectedCourse[3]);
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            for(Curriculum curriculum: school.getCurriculum()){
+                if(curriculum.getCourse().equals(selectedCourse)){
+                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    break;
+                }
+            }
         });
 
         //Center New Course
@@ -279,9 +298,16 @@ public class StudentScene {
 
         newCourseCenter.add(newCoursesLabel, 0, 0, 1, 1);
 
+        ArrayList<Course> listOfCourses = new ArrayList<>();
+        for(int i=0; i<school.getCurriculum().size(); i++){
+            if(!(student.getCurrentCourses().contains(school.getCurriculum().get(i).getCourse()) || student.getCompletedCourses().contains(school.getCurriculum().get(i).getCourse()))){
+                listOfCourses.add(school.getCurriculum().get(i).getCourse());
+            }
+        }
+
         ListView<String> newCourseList = new ListView<>();
-        for (int i = 0; i < restCourseList.size(); i++) {
-            newCourseList.getItems().add(restCourseList.get(i)[0]);
+        for (int i = 0; i < listOfCourses.size(); i++) {
+            newCourseList.getItems().add(listOfCourses.get(i).getName());
         }
 
         newCourseCenter.add(newCourseList, 0, 1, 1, 5);
@@ -323,11 +349,16 @@ public class StudentScene {
         newCourseCenter.add(selectCourseButton, 1, 5, 1, 1);
 
         newCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            String[] selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, restCourseList);
-            newCourseName.setText(selectedCourse[0]);
-            newSubject.setText(selectedCourse[1]);
-            newPoints.setText(selectedCourse[2]);
-            newTeacher.setText(selectedCourse[3]);
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, listOfCourses);
+            courseName.setText(selectedCourse.getName());
+            subject.setText(selectedCourse.getSubject());
+            points.setText(Integer.toString(selectedCourse.getPoints()));
+            for(Curriculum curriculum: school.getCurriculum()){
+                if(curriculum.getCourse().equals(selectedCourse)){
+                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    break;
+                }
+            }
         });
 
 
