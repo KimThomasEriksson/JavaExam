@@ -344,21 +344,37 @@ public class StudentScene {
         newCourseCenter.add(newTeacher, 2, 4, 1, 1);
         newTeacher.setId("infoLabel");
 
-        Button selectCourseButton = new Button("Apply");
 
-        newCourseCenter.add(selectCourseButton, 1, 5, 1, 1);
-
+        ArrayList<Course> chosenCourse = new ArrayList<>();
         newCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, listOfCourses);
-            courseName.setText(selectedCourse.getName());
-            subject.setText(selectedCourse.getSubject());
-            points.setText(Integer.toString(selectedCourse.getPoints()));
+            newCourseName.setText(selectedCourse.getName());
+            newSubject.setText(selectedCourse.getSubject());
+            newPoints.setText(Integer.toString(selectedCourse.getPoints()));
             for(Curriculum curriculum: school.getCurriculum()){
                 if(curriculum.getCourse().equals(selectedCourse)){
-                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
+                    newTeacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
                     break;
                 }
+            chosenCourse.add(selectedCourse);
             }
+
+            Button selectCourseButton = new Button("Apply to course");
+            selectCourseButton.setOnAction(event -> {
+                if(chosenCourse.size()>0){
+                    for(Curriculum curriculum: school.getCurriculum()){
+                        if(curriculum.getCourse() == selectedCourse){
+                            curriculum.addStudent(student);
+                            newCourseList.getItems().remove(selectedCourse.getName());
+                            currentCourseList.getItems().add(selectedCourse.getName());
+                            break;
+                        }
+                    }
+
+                }
+            });
+
+            newCourseCenter.add(selectCourseButton, 1, 5, 1, 1);
         });
 
 
