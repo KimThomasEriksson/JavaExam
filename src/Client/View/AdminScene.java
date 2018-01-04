@@ -82,27 +82,26 @@ public class AdminScene {
         studentCenter.add(studentPoints, 2,3,1,1);
         studentPoints.setId("infoLabel");
 
+        ArrayList<Student> selectedStudents = new ArrayList<>();
+        allStudentList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Student selectedStudent = StudentSceneFunctions.changeSelectedStudent(newValue, school.getStudents());
+            studentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getLastName());
+            studentEmail.setText(selectedStudent.getEmail());
+            studentPoints.setText(Integer.toString(selectedStudent.getTotalPoints()));
+            selectedStudents.add(selectedStudent);
 
-        /*.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
-            courseName.setText(selectedCourse.getName());
-            subject.setText(selectedCourse.getSubject());
-            points.setText(Integer.toString(selectedCourse.getPoints()));
-            for(Curriculum curriculum: school.getCurriculum()){
-                if(curriculum.getCourse().equals(selectedCourse)){
-                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
-                    break;
-                }
-            }
-        });*/
+        });
 
         Button addStudentButton = new Button("Add Student");
-        //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
+        addStudentButton.setOnAction(event -> CreateStudentScene.createStudent(school));
 
         studentCenter.add(addStudentButton, 1,5, 1, 1);
 
         Button removeStudentButton = new Button("Remove Selected Student");
-        //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
+        removeStudentButton.setOnAction(event ->{
+            school.deleteStudent(selectedStudents.get(selectedStudents.size()-1));
+            allStudentList.getItems().remove(selectedStudents.get(selectedStudents.size()-1).getFirstName()+" "+selectedStudents.get(selectedStudents.size()-1).getLastName());
+        });
 
         studentCenter.add(removeStudentButton, 1,6, 1, 1);
 
@@ -155,18 +154,12 @@ public class AdminScene {
         teacherSalary.setId("infoLabel");
 
 
-        /*.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
-            courseName.setText(selectedCourse.getName());
-            subject.setText(selectedCourse.getSubject());
-            points.setText(Integer.toString(selectedCourse.getPoints()));
-            for(Curriculum curriculum: school.getCurriculum()){
-                if(curriculum.getCourse().equals(selectedCourse)){
-                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
-                    break;
-                }
-            }
-        });*/
+        allTeacherList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Teacher selectedTeacher = StudentSceneFunctions.changeSelectedTeacher(newValue, school.getTeachers());
+            teacherName.setText(selectedTeacher.getFirstName() + " " + selectedTeacher.getLastName());
+            teacherEmail.setText(selectedTeacher.getEmail());
+            teacherSalary.setText(Integer.toString(selectedTeacher.getSalary()));
+        });
 
         Button addTeacherButton = new Button("Add Teacher");
         //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
@@ -208,13 +201,13 @@ public class AdminScene {
 
         coursesCenter.add(currentLabel, 0, 0, 1, 1);
 
-        ListView<String> currentCourseList = new ListView<>();
+        ListView<String> allCourseList = new ListView<>();
         for(int i =0; i < school.getCourses().size();i++){
-            currentCourseList.getItems().add(school.getCourses().get(i).getName());
+            allCourseList.getItems().add(school.getCourses().get(i).getName());
         }
 
 
-        coursesCenter.add(currentCourseList, 0, 1, 1,7);
+        coursesCenter.add(allCourseList, 0, 1, 1,7);
 
 
         Label courseNameLabel = new Label("Course Name:");
@@ -249,18 +242,13 @@ public class AdminScene {
         coursesCenter.add(numberOfStudents, 2,4,1,1);
         numberOfStudents.setId("infoLabel");
 
-        /*.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
+        allCourseList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, school.getCourses());
             courseName.setText(selectedCourse.getName());
             subject.setText(selectedCourse.getSubject());
             points.setText(Integer.toString(selectedCourse.getPoints()));
-            for(Curriculum curriculum: school.getCurriculum()){
-                if(curriculum.getCourse().equals(selectedCourse)){
-                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
-                    break;
-                }
-            }
-        });*/
+            numberOfStudents.setText(Integer.toString(selectedCourse.getNumberOfStudents()));
+        });
 
         Button addCourseButton = new Button("Add Course");
         //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
@@ -339,21 +327,19 @@ public class AdminScene {
         curriculumCenter.add(curricilumTeacher, 2,5,1,1);
         curricilumTeacher.setId("infoLabel");
 
-        /*.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            Course selectedCourse = StudentSceneFunctions.changeSelectedCourse(newValue, student.getFailedCourses());
-            courseName.setText(selectedCourse.getName());
-            subject.setText(selectedCourse.getSubject());
-            points.setText(Integer.toString(selectedCourse.getPoints()));
-            for(Curriculum curriculum: school.getCurriculum()){
-                if(curriculum.getCourse().equals(selectedCourse)){
-                    teacher.setText(curriculum.getTeacher().getFirstName() +" "+ curriculum.getTeacher().getLastName());
-                    break;
-                }
-            }
-        });*/
+        ArrayList<Curriculum> allSelectedCurricilums = new ArrayList<>();
+        allCurriculumList.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            Curriculum selectedCurriculum = StudentSceneFunctions.changeSelectedCurriculum(newValue, school.getCurriculum());
+            curricilumCourseName.setText(selectedCurriculum.getCourse().getName());
+            curricilumSubject.setText(selectedCurriculum.getCourse().getSubject());
+            curricilumPoints.setText(Integer.toString(selectedCurriculum.getCourse().getPoints()));
+            curricilumNumberOfStudents.setText(Integer.toString(selectedCurriculum.getCourse().getNumberOfStudents()));
+            curricilumTeacher.setText(selectedCurriculum.getTeacher().getFirstName() + " " + selectedCurriculum.getTeacher().getLastName());
+            allSelectedCurricilums.add(selectedCurriculum);
+        });
 
         Button removeCurriculumButton = new Button("Remove Curriculum");
-        //gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
+        //+gradeStudentButton.setOnAction(event -> GradeStudentScene.createScene((buttonChoiceGrade.get(buttonChoiceGrade.size()-1)), studentList));
 
         curriculumCenter.add(removeCurriculumButton, 1,6, 1, 1);
 
@@ -402,7 +388,7 @@ public class AdminScene {
 
 
         //Start scene
-        root.setCenter(teacherCenter);
+        root.setCenter(studentCenter);
 
         Scene newScene = new Scene(root, 800, 600);
         newScene.getStylesheets().add("Client/View/StudentSceneCSS.css");

@@ -99,6 +99,6 @@ public class Curriculum implements TeacherToCurriculum{
 
     @Override
     public String toString() {
-        return curricilumID +", Course: " + course.getName() + ", Teacher: " + teacher.getFirstName() +" "+teacher.getLastName();
+        return curricilumID +": Course: " + course.getName() + ", Teacher: " + teacher.getFirstName() +" "+teacher.getLastName();
     }
 }

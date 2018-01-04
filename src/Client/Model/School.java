@@ -11,6 +11,10 @@ public class School implements AdminToSchool{
    private ArrayList<Teacher> teachers;
    private ArrayList<Student>students;
    private ArrayList<Admin>admins;
+   private ArrayList<Student> deletedStudents;
+   private ArrayList<Teacher> deletedTeachers;
+   private ArrayList<Course> deletedCourse;
+   private ArrayList<Curriculum> deletedCurricilum;
 
    public School(String name, String adress) {
       Name = name;
@@ -20,6 +24,10 @@ public class School implements AdminToSchool{
       this.teachers =new ArrayList<Teacher>();
       this.students = new ArrayList<Student>();
       this.admins = new ArrayList<>();
+      this.deletedCourse = new ArrayList<>();
+      this.deletedTeachers = new ArrayList<>();
+      this.deletedStudents = new ArrayList<>();
+      this.deletedCurricilum = new ArrayList<>();
    }
 
     public void addTeacher(String firstName,String lastName,String email,String password,int birthyear,int salary,String knownSubject){
@@ -154,6 +162,26 @@ public class School implements AdminToSchool{
 
     public ArrayList<Admin> getAdmins() {
         return admins;
+    }
+
+    public void deleteStudent(Student student){
+        students.remove(student);
+        deletedStudents.add(student);
+    }
+
+    public void deleteTeacher(Teacher teacher){
+        teachers.remove(teacher);
+        deletedTeachers.add(teacher);
+    }
+
+    public void deleteCourse(Course course){
+        courses.remove(course);
+        deletedCourse.add(course);
+    }
+
+    public void deleteCurricilum(Curriculum curriculumToRemove){
+        curriculum.add(curriculumToRemove);
+        deletedCurricilum.add(curriculumToRemove);
     }
 
     /*
